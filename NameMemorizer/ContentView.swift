@@ -8,14 +8,46 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var viewModel = ViewModel()
+    @State private var image: Image?
+    @State private var preimage: UIImage?
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            List {
+                ForEach (viewModel.people.sorted()) { person in
+                    HStack {
+                        NavigationLink {
+                            PhotoDetailView(personPassed: person)
+                        } label: {
+                            person.convert()
+                                .resizable()
+                                .scaledToFill()
+                                .clipShape(Circle())
+                                .frame(width:100, height:100)
+                            Spacer()
+                            Text(person.name)
+                        }
+                        
+                        
+                    }
+                }
+            }
+            .navigationTitle("NameMemorizer")
+            .toolbar {
+                NavigationLink {
+                    PersonEditView(viewModel: viewModel)
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            .onChange(of: viewModel.people) { person in
+                
+                
+                
+            }
         }
-        .padding()
     }
 }
 
