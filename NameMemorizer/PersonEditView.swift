@@ -27,14 +27,13 @@ struct PersonEditView: View {
             ZStack {
                 Rectangle()
                     .fill(Color.gray)
-                    .frame(width: 150, height: 150)
+                    .frame(width: 200, height: 200)
                 
                 Text("Tap to select image")
                 
                 image?
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 200)
             }
             .onTapGesture {
                 self.locationFetcher.start()

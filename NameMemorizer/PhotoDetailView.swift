@@ -9,16 +9,17 @@ import SwiftUI
 import MapKit
 
 struct PhotoDetailView: View {
-    @State var showImageLocation: Bool
-    @State var mapRegion: MKCoordinateRegion
+    @State private var showImageLocation: Bool
+    @State private var mapRegion: MKCoordinateRegion
     var person: PersonImage
     
     
     init(personPassed: PersonImage) {
         person = personPassed
-        showImageLocation = false
-        mapRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0), span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25))
+        _showImageLocation = State(initialValue: false)
+        _mapRegion = State(initialValue: MKCoordinateRegion(center: person.currentLocation(), span: MKCoordinateSpan(latitudeDelta: 25, longitudeDelta: 25)))
     }
+
     
     var body: some View {
         VStack {
